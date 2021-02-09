@@ -14,6 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('register','App\Http\Controllers\AuthController@register');
+
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::post('testOauth', 'App\Http\Controllers\AuthController@testOauth');
+    
+});
+
+Route::get('users', 'App\Http\Controllers\UserDataController@getUsers');
+Route::get('user/{id}', 'App\Http\Controllers\UserDataController@getUser');
+Route::post('user', 'App\Http\Controllers\UserDataController@addUser');
+Route::put('user/{id}', 'App\Http\Controllers\UserDataController@updateUser');
+Route::delete('user/{id}', 'App\Http\Controllers\UserDataController@DeleteUser');
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
